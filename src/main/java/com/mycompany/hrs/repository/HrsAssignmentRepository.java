@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HrsAssignmentRepository extends JpaRepository<HrsAssignment, Long> {
     // Custom queries if needed
+    
 }

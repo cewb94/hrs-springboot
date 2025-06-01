@@ -26,6 +26,9 @@ import java.time.Duration;
 @EnableCaching
 public class RedisConfig {
 
+/**
+ * Jackson Databind mapping JSON to Java Object used to serialize cache values
+*/
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         // Default cache configuration: 
