@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Employee List</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          integrity="sha384-9ndCyUa3YBH7e+7NZiBaOyjGeI6B4OGfVEZjkKngWJWre+SmEzEe50rPQOkf17bE"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Employee Assignments (HRS_ASG_DETAILS_V2)</h1>
+    <a class="btn btn-primary mb-3" th:href="@{/employees/new}">Hire New Employee</a>
+    <table class="table table-striped table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Assign ID</th>
+                <th>Emp #</th>
+                <th>Full Name</th>
+                <th>Dept</th>
+                <th>Job</th>
+                <th>Grade</th>
+                <th>Supervisor</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="asg : ${employees}">
+            <td th:text="${asg.assiId}">1</td>
+            <td th:text="${asg.empNumber}">EMP001</td>
+            <td th:text="${asg.fullName}">John Doe</td>
+            <td th:text="${asg.departmentName}">HR</td>
+            <td th:text="${asg.jobTitle}">HR Manager</td>
+            <td th:text="${asg.gradeName}">HO5</td>
+            <td th:text="${asg.supervisorName == null ? '-' : asg.supervisorName}">-</td>
+            <td th:text="${asg.effStartDate}">2025-01-01</td>
+            <td th:text="${asg.effEndDate}">2025-12-31</td>
+        </tr>
+        <tr th:if="${employees.isEmpty()}">
+            <td colspan="9" class="text-center">No employees found.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
