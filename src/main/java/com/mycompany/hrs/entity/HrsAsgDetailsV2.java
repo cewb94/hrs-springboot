@@ -46,10 +46,10 @@ public class HrsAsgDetailsV2 {
     private String assiAction;
 
     @Column(name = "EFF_START_DATE")
-    private java.time.LocalDate effStartDate;
+    private java.util.Date effStartDate;
 
     @Column(name = "EFF_END_DATE")
-    private java.time.LocalDate effEndDate;
+    private java.util.Date effEndDate;
 
     @Column(name = "EMP_NUMBER", length = 255)
     private String empNumber;
@@ -90,8 +90,8 @@ public class HrsAsgDetailsV2 {
     public Long getEmpId() { return empId; }
     public String getAssiNumber() { return assiNumber; }
     public String getAssiAction() { return assiAction; }
-    public java.time.LocalDate getEffStartDate() { return effStartDate; }
-    public java.time.LocalDate getEffEndDate() { return effEndDate; }
+    public java.util.Date getEffStartDate() { return effStartDate; }
+    public java.util.Date getEffEndDate() { return effEndDate; }
     public String getEmpNumber() { return empNumber; }
     public String getFullName() { return fullName; }
     public String getJobCode() { return jobCode; }

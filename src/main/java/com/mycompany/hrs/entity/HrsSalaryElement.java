@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 //import javax.persistence.GenerationType;
 //import javax.persistence.Id;
 //import javax.persistence.Table;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -36,16 +36,16 @@ public class HrsSalaryElement {
     private Double amount;
 
     @Column(name = "START_DATE")
-    private LocalDate startDate;
+    private Date startDate;
 
     @Column(name = "END_DATE")
-    private LocalDate endDate;
+    private Date endDate;
 
     // Constructors
     public HrsSalaryElement() { }
 
     public HrsSalaryElement(Long salElemId, Long salId, Long compElemId,
-                            Double amount, LocalDate startDate, LocalDate endDate) {
+                            Double amount, Date startDate, Date endDate) {
         this.salElemId = salElemId;
         this.salId = salId;
         this.compElemId = compElemId;
@@ -67,9 +67,9 @@ public class HrsSalaryElement {
     public Double getAmount() { return amount; }
     public void setAmount(Double amount) { this.amount = amount; }
 
-    public LocalDate getStartDate() { return startDate; }
-    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+    public Date getStartDate() { return startDate; }
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
 
-    public LocalDate getEndDate() { return endDate; }
-    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+    public Date getEndDate() { return endDate; }
+    public void setEndDate(Date endDate) { this.endDate = endDate; }
 }

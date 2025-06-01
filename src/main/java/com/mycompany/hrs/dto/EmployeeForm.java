@@ -1,6 +1,6 @@
 package com.mycompany.hrs.dto;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * DTO for “Hire Employee” form: 
@@ -23,8 +23,8 @@ public class EmployeeForm {
     private Long supervisorId; // optional
     private String assiNumber;
     private String assiAction;
-    private LocalDate effStartDate;
-    private LocalDate effEndDate;
+    private Date effStartDate;
+    private Date effEndDate;
 
     public EmployeeForm() { }
 
@@ -65,9 +65,9 @@ public class EmployeeForm {
     public String getAssiAction() { return assiAction; }
     public void setAssiAction(String assiAction) { this.assiAction = assiAction; }
 
-    public LocalDate getEffStartDate() { return effStartDate; }
-    public void setEffStartDate(LocalDate effStartDate) { this.effStartDate = effStartDate; }
+    public Date getEffStartDate() { return effStartDate; }
+    public void setEffStartDate(Date effStartDate) { this.effStartDate = effStartDate; }
 
-    public LocalDate getEffEndDate() { return effEndDate; }
-    public void setEffEndDate(LocalDate effEndDate) { this.effEndDate = effEndDate; }
+    public Date getEffEndDate() { return effEndDate; }
+    public void setEffEndDate(Date effEndDate) { this.effEndDate = effEndDate; }
 }

@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 //import javax.persistence.Id;
 //import javax.persistence.Table;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -49,17 +49,17 @@ public class HrsAssignment {
     private String assiAction;
 
     @Column(name = "EFF_START_DATE")
-    private LocalDate effStartDate;
+    private Date effStartDate;
 
     @Column(name = "EFF_END_DATE")
-    private LocalDate effEndDate;
+    private Date effEndDate;
 
     // Constructors
     public HrsAssignment() { }
 
     public HrsAssignment(Long assiId, Long deptId, Long jobId, Long gradeId, Long superId,
                          Long empId, String assiNumber, String assiAction,
-                         LocalDate effStartDate, LocalDate effEndDate) {
+                         Date effStartDate, Date effEndDate) {
         this.assiId = assiId;
         this.deptId = deptId;
         this.jobId = jobId;
@@ -97,9 +97,9 @@ public class HrsAssignment {
     public String getAssiAction() { return assiAction; }
     public void setAssiAction(String assiAction) { this.assiAction = assiAction; }
 
-    public LocalDate getEffStartDate() { return effStartDate; }
-    public void setEffStartDate(LocalDate effStartDate) { this.effStartDate = effStartDate; }
+    public Date getEffStartDate() { return effStartDate; }
+    public void setEffStartDate(Date effStartDate) { this.effStartDate = effStartDate; }
 
-    public LocalDate getEffEndDate() { return effEndDate; }
-    public void setEffEndDate(LocalDate effEndDate) { this.effEndDate = effEndDate; }
+    public Date getEffEndDate() { return effEndDate; }
+    public void setEffEndDate(Date effEndDate) { this.effEndDate = effEndDate; }
 }

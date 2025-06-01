@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 //import javax.persistence.GenerationType;
 //import javax.persistence.Id;
 //import javax.persistence.Table;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -31,10 +31,10 @@ public class HrsEmpAbsence {
     private Long empId;
 
     @Column(name = "START_DATE")
-    private LocalDate startDate;
+    private Date startDate;
 
     @Column(name = "END_DATE")
-    private LocalDate endDate;
+    private Date endDate;
 
     @Column(name = "ABS_ID", nullable = false)
     private Long absId;
@@ -42,7 +42,7 @@ public class HrsEmpAbsence {
     // Constructors
     public HrsEmpAbsence() { }
 
-    public HrsEmpAbsence(Long empAbsId, Long empId, LocalDate startDate, LocalDate endDate, Long absId) {
+    public HrsEmpAbsence(Long empAbsId, Long empId, Date startDate, Date endDate, Long absId) {
         this.empAbsId = empAbsId;
         this.empId = empId;
         this.startDate = startDate;
@@ -57,11 +57,11 @@ public class HrsEmpAbsence {
     public Long getEmpId() { return empId; }
     public void setEmpId(Long empId) { this.empId = empId; }
 
-    public LocalDate getStartDate() { return startDate; }
-    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+    public Date getStartDate() { return startDate; }
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
 
-    public LocalDate getEndDate() { return endDate; }
-    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+    public Date getEndDate() { return endDate; }
+    public void setEndDate(Date endDate) { this.endDate = endDate; }
 
     public Long getAbsId() { return absId; }
     public void setAbsId(Long absId) { this.absId = absId; }
