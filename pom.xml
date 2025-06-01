@@ -100,6 +100,23 @@
    
     <build>
         <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <!-- Use Java 23 as specified by <maven.compiler.release> -->
+                    <source>${maven.compiler.release}</source>
+                    <target>${maven.compiler.release}</target>
+                    <compilerArgs>
+                        <!-- Tell javac to keep parameter names in the bytecode -->
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            
+            
             <!-- 1) Spring Boot plugin: force the “repackage” goal on package -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -28,8 +28,8 @@ public class DepartmentRestController {
     }
 
     @GetMapping("/{id}")
-    public CompletableFuture<ResponseEntity<HrsDepartment>> getDepartmentById(@PathVariable Long id) {
-        return departmentService.getDepartmentById(id)
+    public CompletableFuture<ResponseEntity<HrsDepartment>> getDepartmentById(@PathVariable("id") Long deptId) {
+        return departmentService.getDepartmentById(deptId)
                 .thenApply(d -> d != null
                         ? ResponseEntity.ok(d)
                         : ResponseEntity.notFound().build());
@@ -49,7 +49,7 @@ public class DepartmentRestController {
     }
 
     @DeleteMapping("/{id}")
-    public CompletableFuture<ResponseEntity<Void>> deleteDepartment(@PathVariable Long id) {
+    public CompletableFuture<ResponseEntity<Void>> deleteDepartment(@PathVariable("id") Long id) {
         return departmentService.deleteDepartment(id)
                 .thenApply(v -> ResponseEntity.noContent().build());
     }

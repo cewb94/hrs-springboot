@@ -28,9 +28,17 @@ public class AsgDetailsV2Service {
     }
 
     @Async
-    @Cacheable(cacheNames = "asgDetailsV2Item", key = "#id")
+    @Cacheable(cacheNames = "asgDetailsV2Item", key = "#id") //, condition = "#id != null")
     public CompletableFuture<HrsAsgDetailsV2> getAsgDetailById(Long id) {
         return CompletableFuture.supplyAsync(() ->
                 asgDetailsRepo.findById(id).orElse(null));
+    }
+    
+    
+    @Async
+    @Cacheable(cacheNames = "asgDetailsV2Item", key = "#empNum", condition = "#empNum != null")
+    public CompletableFuture<HrsAsgDetailsV2> getAsgDetailByEmpNum(String empNumber) {
+        return CompletableFuture.supplyAsync(() ->
+                asgDetailsRepo.findByEmpNumber(empNumber));
     }
 }

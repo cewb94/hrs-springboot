@@ -29,8 +29,15 @@ public class AsgDetailsV2RestController {
     }
 
     @GetMapping("/{id}")
-    public CompletableFuture<ResponseEntity<HrsAsgDetailsV2>> getJobById(@PathVariable Long id) {
+    public CompletableFuture<ResponseEntity<HrsAsgDetailsV2>> getAsgDetailById(@PathVariable("id") Long id) {
         return service.getAsgDetailById(id).thenApply(j -> j != null
+                ? ResponseEntity.ok(j)
+                : ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping("/emp_num/{empNumber}")
+    public CompletableFuture<ResponseEntity<HrsAsgDetailsV2>> getAsgDetailByEmpNum(@PathVariable("empNumber") String empNumber) {
+        return service.getAsgDetailByEmpNum(empNumber).thenApply(j -> j != null
                 ? ResponseEntity.ok(j)
                 : ResponseEntity.notFound().build());
     }

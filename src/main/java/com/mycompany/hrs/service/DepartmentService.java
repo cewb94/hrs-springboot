@@ -30,10 +30,10 @@ public class DepartmentService {
     }
 
     @Async
-    @Cacheable(cacheNames = "department", key = "#id")
-    public CompletableFuture<HrsDepartment> getDepartmentById(Long id) {
+    @Cacheable(cacheNames = "department", key = "#deptId", condition = "#deptId != null")
+    public CompletableFuture<HrsDepartment> getDepartmentById(Long deptId) {
         return CompletableFuture.supplyAsync(() ->
-                departmentRepository.findById(id).orElse(null));
+                departmentRepository.findById(deptId).orElse(null));
     }
 
     @Async
