@@ -36,7 +36,7 @@ public class JobService {
      * Retrieve a single job by ID (cached under "job" with key = jobId).
      */
     @Async
-    @Cacheable(cacheNames = "job", key = "#id")
+    @Cacheable(cacheNames = "job", key = "#id", condition = "#id != null")
     public CompletableFuture<HrsJob> getJobById(Long id) {
         return CompletableFuture.supplyAsync(() ->
             jobRepository.findById(id).orElse(null)

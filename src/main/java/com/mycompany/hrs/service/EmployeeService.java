@@ -41,7 +41,7 @@ public class EmployeeService {
      * Find one employee by ID.
      */
     @Async
-    @Cacheable(cacheNames = "employee", key = "#id")
+    @Cacheable(cacheNames = "employee", key = "#id", condition = "#id != null")
     public CompletableFuture<HrsEmployee> getEmployeeById(Long id) {
         return CompletableFuture.supplyAsync(() -> {
             return employeeRepository.findById(id).orElse(null);

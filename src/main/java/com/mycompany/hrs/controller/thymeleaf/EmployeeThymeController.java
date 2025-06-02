@@ -1,10 +1,8 @@
-package com.mycompany.hrs.controller;
+package com.mycompany.hrs.controller.thymeleaf;
 
 import com.mycompany.hrs.dto.EmployeeForm;
 import com.mycompany.hrs.entity.HrsAsgDetailsV2;
-import com.mycompany.hrs.entity.HrsDepartment;
-import com.mycompany.hrs.entity.HrsGrade;
-import com.mycompany.hrs.entity.HrsJob;
+
 import com.mycompany.hrs.service.AsgDetailsV2Service;
 import com.mycompany.hrs.service.DepartmentService;
 import com.mycompany.hrs.service.GradeService;
@@ -24,7 +22,7 @@ import java.util.concurrent.ExecutionException;
  */
 @Controller
 @RequestMapping("/employees")
-public class ThymeleafEmployeeController {
+public class EmployeeThymeController {
 
     private final AsgDetailsV2Service asgDetailsService;
     private final DepartmentService departmentService;
@@ -33,7 +31,7 @@ public class ThymeleafEmployeeController {
     private final EmployeeService employeeService;
 
     @Autowired
-    public ThymeleafEmployeeController(AsgDetailsV2Service asgDetailsService,
+    public EmployeeThymeController(AsgDetailsV2Service asgDetailsService,
                                        DepartmentService departmentService,
                                        JobService jobService,
                                        GradeService gradeService,

@@ -28,7 +28,7 @@ public class AsgDetailsV2Service {
     }
 
     @Async
-    @Cacheable(cacheNames = "asgDetailsV2Item", key = "#id") //, condition = "#id != null")
+    @Cacheable(cacheNames = "asgDetailsV2Item", key = "#id", condition = "#id != null")
     public CompletableFuture<HrsAsgDetailsV2> getAsgDetailById(Long id) {
         return CompletableFuture.supplyAsync(() ->
                 asgDetailsRepo.findById(id).orElse(null));

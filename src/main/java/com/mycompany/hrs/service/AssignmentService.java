@@ -30,7 +30,7 @@ public class AssignmentService {
     }
 
     @Async
-    @Cacheable(cacheNames = "assignment", key = "#id")
+    @Cacheable(cacheNames = "assignment", key = "#id", condition = "#id != null")
     public CompletableFuture<HrsAssignment> getAssignmentById(Long id) {
         return CompletableFuture.supplyAsync(() -> assignmentRepository.findById(id).orElse(null));
     }

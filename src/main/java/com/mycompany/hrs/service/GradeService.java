@@ -36,7 +36,7 @@ public class GradeService {
      * Retrieve a single grade by ID (cached under "grade" with key = gradeId).
      */
     @Async
-    @Cacheable(cacheNames = "grade", key = "#id")
+    @Cacheable(cacheNames = "grade", key = "#id", condition = "#id != null")
     public CompletableFuture<HrsGrade> getGradeById(Long id) {
         return CompletableFuture.supplyAsync(() ->
             gradeRepository.findById(id).orElse(null)
