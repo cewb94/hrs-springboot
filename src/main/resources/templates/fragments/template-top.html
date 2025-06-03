@@ -9,6 +9,8 @@
 
     <!-- Link to your locally hosted bootstrap.min.css -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <!-- Link to Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 
 </head>
 
@@ -16,7 +18,7 @@
 
     <div id="wrapper">
         <!-- Insert the sidebar fragment here -->
-        <div th:replace="fragments/sidebar :: sideNav"></div>
+        <div th:replace="~{fragments/sidebar :: sideNav}"></div>
 
 
         <div id="content-wrapper" class="d-flex flex-column">

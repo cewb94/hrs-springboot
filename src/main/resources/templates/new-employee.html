@@ -1,5 +1,5 @@
 <!-- Insert template top part -->
-<div th:replace="fragments/template-top"></div>
+<div th:replace="~{fragments/template-top}"></div>
 
 <!-- Insert page content here -->
 <div class="container mt-4">
@@ -24,8 +24,7 @@
             <div class="row mb-2">
                 <div class="col">
                     <label for="dob" class="form-label">DOB</label>
-                    <input type="text" id="dob" th:field="*{dob}" class="form-control" placeholder="YYYY-MM-DD"
-                        required>
+                    <input type="date" id="dob" th:field="*{dob}" class="form-control" required>
                 </div>
                 <div class="col">
                     <label for="gender" class="form-label">Gender</label>
@@ -112,4 +111,4 @@
 </div>
 <!-- Page content ends here -->
 <!-- Insert template top part -->
-<div th:replace="fragments/template-bottom"></div>
+<div th:replace="~{fragments/template-bottom}"></div>

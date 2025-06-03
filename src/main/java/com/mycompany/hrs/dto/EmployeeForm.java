@@ -1,6 +1,7 @@
 package com.mycompany.hrs.dto;
 
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * DTO for “Hire Employee” form: 
@@ -23,7 +24,9 @@ public class EmployeeForm {
     private Long supervisorId; // optional
     private String assiNumber;
     private String assiAction;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date effStartDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date effEndDate;
 
     public EmployeeForm() { }
