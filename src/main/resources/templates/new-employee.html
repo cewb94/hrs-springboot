@@ -43,6 +43,10 @@
                     <div class="col">
                         <label for="nationality" class="form-label">Nationality</label>
                         <input type="text" id="nationality" th:field="*{nationality}" class="form-control" required>
+                        <!-- <select id="natId" th:field="*{natId}" class="form-select" required>
+                            <option th:each="dept : ${nationalities}" th:value="${dept.natId}"
+                                th:text="${dept.deptName}">Department Name</option>
+                        </select> -->
                     </div>
                 </div>
             </fieldset>
@@ -82,7 +86,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <label for="assiNumber" class="form-label">Assignment #</label>
+                        <label for="assiNumber" class="form-label">Assignment Number</label>
                         <input type="text" id="assiNumber" th:field="*{assiNumber}" class="form-control" required>
                     </div>
                     <div class="col">
