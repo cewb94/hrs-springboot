@@ -42,11 +42,13 @@
                     </div>
                     <div class="col">
                         <label for="nationality" class="form-label">Nationality</label>
-                        <input type="text" id="nationality" th:field="*{nationality}" class="form-control" required>
-                        <!-- <select id="natId" th:field="*{natId}" class="form-select" required>
-                            <option th:each="dept : ${nationalities}" th:value="${dept.natId}"
-                                th:text="${dept.deptName}">Department Name</option>
-                        </select> -->
+                        <!-- <input type="text" id="nationality" th:field="*{nationality}" class="form-control" required> -->
+                        
+                        <select id="nationality" th:field="*{nationality}" class="form-select" required>
+                            <option value="" th:text="''"></option>
+                            <option th:each="country : ${countries}" th:value="${country.name}"
+                                th:text="${country.name}">Nationality</option>
+                        </select>
                     </div>
                 </div>
             </fieldset>

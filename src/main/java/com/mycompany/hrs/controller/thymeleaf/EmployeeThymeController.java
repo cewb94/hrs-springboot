@@ -1,9 +1,11 @@
 package com.mycompany.hrs.controller.thymeleaf;
 
+import com.mycompany.hrs.dto.Country;
 import com.mycompany.hrs.dto.EmployeeForm;
 import com.mycompany.hrs.entity.HrsAsgDetailsV2;
 
 import com.mycompany.hrs.service.AsgDetailsV2Service;
+import com.mycompany.hrs.service.CountryService;
 import com.mycompany.hrs.service.DepartmentService;
 import com.mycompany.hrs.service.GradeService;
 import com.mycompany.hrs.service.JobService;
@@ -29,18 +31,21 @@ public class EmployeeThymeController {
     private final JobService jobService;
     private final GradeService gradeService;
     private final EmployeeService employeeService;
+    private final CountryService countryService;
 
     @Autowired
     public EmployeeThymeController(AsgDetailsV2Service asgDetailsService,
                                        DepartmentService departmentService,
                                        JobService jobService,
                                        GradeService gradeService,
-                                       EmployeeService employeeService) {
+                                       EmployeeService employeeService,
+                                       CountryService countryService) {
         this.asgDetailsService = asgDetailsService;
         this.departmentService = departmentService;
         this.jobService = jobService;
         this.gradeService = gradeService;
         this.employeeService = employeeService;
+        this.countryService = countryService;
     }
 
     /**
@@ -66,14 +71,24 @@ public class EmployeeThymeController {
     public String showHireForm(Model model) throws ExecutionException, InterruptedException {
         EmployeeForm form = new EmployeeForm();
         model.addAttribute("employeeForm", form);
+        
+        // 1. Fetch the full list of countries
+        // List<Country> countries = countryService.getAllCountries();
+        // 2. Create and insert a dummy “blank” country at index 0
+        // countries.add(0, new Country("", "", ""));
 
-        // Populate dropdowns: departments, jobs, grades, and possible supervisors
+        // 3. Put the modified list into the model
+        // model.addAttribute("countries", countries);
+
+        // Populate dropdowns: departments, jobs, grades, countries, and possible supervisors
         model.addAttribute("departments", departmentService.getAllDepartments().get());
         model.addAttribute("jobs", jobService.getAllJobs().get());
         model.addAttribute("grades", gradeService.getAllGrades().get());
+        model.addAttribute("countries", countryService.getAllCountries()); // ${countries}
 
         // We also supply a list of existing employees & their names (from view) as possible supervisors:
         model.addAttribute("supervisors", asgDetailsService.getAllAsgDetails().get());
+
 
         return "new-employee";  // Thymeleaf template: new-employee.html
     }

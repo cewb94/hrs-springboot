@@ -14,7 +14,7 @@ public class EmployeeForm {
     private String lastName;
     private String dob;
     private String gender;
-    private String nationality;
+    private String nationality; // th:field="*{nationality}" where *{...} is Selection expressions.
 
     // ASSIGNMENT fields
     private Long deptId;
