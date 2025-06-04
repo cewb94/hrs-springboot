@@ -53,7 +53,7 @@ public class EmployeeThymeController {
      */
     @GetMapping
     public String listEmployees(Model model) throws ExecutionException, InterruptedException {
-        List<HrsAsgDetailsV2> employees = asgDetailsService.getAllAsgDetails().get();
+        List<HrsAsgDetailsV2> employees = asgDetailsService.getAllAsgDetails();
         model.addAttribute("employees", employees);
         return "employees";  // Thymeleaf template: employees.html
     }
@@ -87,7 +87,7 @@ public class EmployeeThymeController {
         model.addAttribute("countries", countryService.getAllCountries()); // ${countries}
 
         // We also supply a list of existing employees & their names (from view) as possible supervisors:
-        model.addAttribute("supervisors", asgDetailsService.getAllAsgDetails().get());
+        model.addAttribute("supervisors", asgDetailsService.getAllAsgDetails());
 
 
         return "new-employee";  // Thymeleaf template: new-employee.html

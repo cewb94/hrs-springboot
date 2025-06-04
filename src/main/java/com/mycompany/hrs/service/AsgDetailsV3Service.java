@@ -9,6 +9,7 @@ import com.mycompany.hrs.repository.HrsAsgDetailsV3Repository;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -28,14 +29,14 @@ public class AsgDetailsV3Service {
     }
     
     @Async
-    @Cacheable(cacheNames = "asgDetailsV3")
+    @CachePut(cacheNames = "asgDetailsV3")
     public CompletableFuture<List<HrsAsgDetailsV3>> getAllAsgDetails() {
         List<HrsAsgDetailsV3> all = asgDetailsRepo.findAll();
         return CompletableFuture.completedFuture(all);
     }
 
     @Async
-    @Cacheable(cacheNames = "asgDetailsV3Item", key = "#id", condition = "#id != null")
+    @CachePut(cacheNames = "asgDetailsV3Item", key = "#id", condition = "#id != null")
     public CompletableFuture<HrsAsgDetailsV3> getAsgDetailById(Long id) {
         return CompletableFuture.supplyAsync(() ->
                 asgDetailsRepo.findById(id).orElse(null));
@@ -43,7 +44,7 @@ public class AsgDetailsV3Service {
     
     
     @Async
-    @Cacheable(cacheNames = "asgDetailsV3Item", key = "#empNum", condition = "#empNum != null")
+    @CachePut(cacheNames = "asgDetailsV3EmpNum", key = "#empNumber", condition = "#empNumber != null")
     public CompletableFuture<HrsAsgDetailsV3> getAsgDetailByEmpNum(String empNumber) {
         return CompletableFuture.supplyAsync(() ->
                 asgDetailsRepo.findByEmpNumber(empNumber));

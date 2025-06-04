@@ -1,44 +1,58 @@
 package com.mycompany.hrs.service;
 
 import com.mycompany.hrs.entity.HrsAsgDetailsV2;
-import com.mycompany.hrs.repository.HrsAsgDetailsV2Repository;
+import com.mycompany.hrs.service.async.AsgDetailsV2AsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 
 @Service
 public class AsgDetailsV2Service {
 
-    private final HrsAsgDetailsV2Repository asgDetailsRepo;
+    private final AsgDetailsV2AsyncService asyncService;
 
     @Autowired
-    public AsgDetailsV2Service(HrsAsgDetailsV2Repository asgDetailsRepo) {
-        this.asgDetailsRepo = asgDetailsRepo;
+    public AsgDetailsV2Service(AsgDetailsV2AsyncService asyncService) {
+        this.asyncService = asyncService;
     }
 
-    @Async
-    @Cacheable(cacheNames = "asgDetailsV2")
-    public CompletableFuture<List<HrsAsgDetailsV2>> getAllAsgDetails() {
-        List<HrsAsgDetailsV2> all = asgDetailsRepo.findAll();
-        return CompletableFuture.completedFuture(all);
+
+    @CachePut(cacheNames = "asgDetailsV2")
+    public List<HrsAsgDetailsV2> getAllAsgDetails() throws InterruptedException, ExecutionException {
+        // Kick off the async fetch; then .get() to wait until it’s done.
+        CompletableFuture<List<HrsAsgDetailsV2>> future = asyncService.fetchAllAsgDetails();
+        
+        return future.get();
     }
 
-    @Async
-    @Cacheable(cacheNames = "asgDetailsV2Item", key = "#id", condition = "#id != null")
-    public CompletableFuture<HrsAsgDetailsV2> getAsgDetailById(Long id) {
-        return CompletableFuture.supplyAsync(() ->
-                asgDetailsRepo.findById(id).orElse(null));
+
+    @CachePut(
+        cacheNames = "asgDetailsV2Item",
+        key = "#id",
+        condition = "#id != null"
+    )
+    public CompletableFuture<HrsAsgDetailsV2> getAsgDetailById(Long id) throws InterruptedException, ExecutionException {
+        CompletableFuture<HrsAsgDetailsV2> future = asyncService.fetchAsgDetailById(id);
+        return future;
+        //return future.get(); // wait for the async DB call to finish
+    }
+
+
+    @CachePut(
+        cacheNames = "asgDetailsV2Item",
+        key = "#empNumber",
+        condition = "#empNumber != null"
+    )
+    public CompletableFuture<HrsAsgDetailsV2> getAsgDetailByEmpNum(String empNumber) throws InterruptedException, ExecutionException {
+        CompletableFuture<HrsAsgDetailsV2> future = asyncService.fetchAsgDetailByEmpNum(empNumber);
+        return future;
+        //return future.get();
     }
     
-    
-    @Async
-    @Cacheable(cacheNames = "asgDetailsV2Item", key = "#empNum", condition = "#empNum != null")
-    public CompletableFuture<HrsAsgDetailsV2> getAsgDetailByEmpNum(String empNumber) {
-        return CompletableFuture.supplyAsync(() ->
-                asgDetailsRepo.findByEmpNumber(empNumber));
-    }
 }
