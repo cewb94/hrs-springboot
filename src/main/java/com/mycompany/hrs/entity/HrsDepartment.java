@@ -45,10 +45,11 @@ public class HrsDepartment {
 
     // Getters & Setters
     public Long getDeptId() { return deptId; }
-    public void setDeptId(Long deptId) { this.deptId = deptId; }
+    // public void setDeptId(Long deptId) { this.deptId = deptId; }
 
-    public Long getLocId() { return this.location.getLocId(); }
-    public HrsLocation geLocation() { return this.location; }
+    // if you remove a getter method then the return value is taken out of the JSON
+    //public Long getLocId() { return this.location.getLocId(); }
+    public HrsLocation getLocation() { return this.location; }
     public void setLocation(HrsLocation location) { this.location = location; }
 
     public String getDeptName() { return deptName; }

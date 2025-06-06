@@ -32,7 +32,7 @@ public class DepartmentService {
     }
 
     @Async
-    @Cacheable(cacheNames = "department", key = "#deptId", condition = "#deptId != null")
+    @CachePut(cacheNames = "department", key = "#deptId", condition = "#deptId != null")
     public CompletableFuture<HrsDepartment> getDepartmentById(Long deptId) {
         return CompletableFuture.supplyAsync(() ->
                 departmentRepository.findById(deptId).orElse(null));
@@ -54,7 +54,7 @@ public class DepartmentService {
             HrsDepartment existing = departmentRepository.findById(id).orElseThrow(() ->
                     new RuntimeException("Department not found with id: " + id));
             //existing.setLocId(d.getLocId());
-            existing.setLocation(dept.geLocation());
+            existing.setLocation(dept.getLocation());
             existing.setDeptName(dept.getDeptName());
             return departmentRepository.save(existing);
         });

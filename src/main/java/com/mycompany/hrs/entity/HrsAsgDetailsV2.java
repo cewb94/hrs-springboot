@@ -5,12 +5,7 @@
 package com.mycompany.hrs.entity;
 
 import jakarta.persistence.*;
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.Table;
+
 import org.hibernate.annotations.Immutable;
 
 /**
@@ -36,8 +31,12 @@ public class HrsAsgDetailsV2 {
     @Column(name = "GRADE_ID")
     private Long gradeId;
 
-    @Column(name = "EMP_ID")
-    private Long empId;
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "EMP_ID")
+    private HrsEmployee employee;
+    // @Column(name = "EMP_ID")
+    // private Long empId;
 
     @Column(name = "ASSI_NUMBER", length = 255)
     private String assiNumber;
@@ -87,7 +86,7 @@ public class HrsAsgDetailsV2 {
     public Long getDeptId() { return deptId; }
     public Long getJobId() { return jobId; }
     public Long getGradeId() { return gradeId; }
-    public Long getEmpId() { return empId; }
+    public Long getEmpId() { return this.employee.getEmpId(); }
     public String getAssiNumber() { return assiNumber; }
     public String getAssiAction() { return assiAction; }
     public java.util.Date getEffStartDate() { return effStartDate; }
