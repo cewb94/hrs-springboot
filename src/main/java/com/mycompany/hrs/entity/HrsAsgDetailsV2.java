@@ -18,25 +18,18 @@ import org.hibernate.annotations.Immutable;
 @Table(name = "HRS_ASG_DETAILS_V2", schema = "HRS")
 public class HrsAsgDetailsV2 {
 
-    @Id
-    @Column(name = "ASSI_ID")
-    private Long assiId;
-
-    @Column(name = "DEPT_ID")
-    private Long deptId;
-
-    @Column(name = "JOB_ID")
-    private Long jobId;
-
-    @Column(name = "GRADE_ID")
-    private Long gradeId;
+    
+    @Column(name = "FULL_NAME", length = 511)
+    private String fullName;
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "EMP_ID")
     private HrsEmployee employee;
-    // @Column(name = "EMP_ID")
-    // private Long empId;
+
+    @Id
+    @Column(name = "ASSI_ID")
+    private Long assiId;
 
     @Column(name = "ASSI_NUMBER", length = 255)
     private String assiNumber;
@@ -50,11 +43,21 @@ public class HrsAsgDetailsV2 {
     @Column(name = "EFF_END_DATE")
     private java.util.Date effEndDate;
 
+
+    @Column(name = "DEPT_ID")
+    private Long deptId;
+
+    @Column(name = "JOB_ID")
+    private Long jobId;
+
+    @Column(name = "GRADE_ID")
+    private Long gradeId;
+    
+    // @Column(name = "EMP_ID")
+    // private Long empId;
+
     @Column(name = "EMP_NUMBER", length = 255)
     private String empNumber;
-
-    @Column(name = "FULL_NAME", length = 511)
-    private String fullName;
 
     @Column(name = "JOB_CODE", length = 255)
     private String jobCode;
@@ -82,17 +85,18 @@ public class HrsAsgDetailsV2 {
     public HrsAsgDetailsV2() { }
 
     // Getters
+    public String getFullName() { return fullName; }
+    public HrsEmployee getEmployee() { return this.employee; }
     public Long getAssiId() { return assiId; }
     public Long getDeptId() { return deptId; }
     public Long getJobId() { return jobId; }
     public Long getGradeId() { return gradeId; }
-    public Long getEmpId() { return this.employee.getEmpId(); }
+    //public Long getEmpId() { return this.employee.getEmpId(); }
     public String getAssiNumber() { return assiNumber; }
     public String getAssiAction() { return assiAction; }
     public java.util.Date getEffStartDate() { return effStartDate; }
     public java.util.Date getEffEndDate() { return effEndDate; }
-    public String getEmpNumber() { return empNumber; }
-    public String getFullName() { return fullName; }
+    //public String getEmpNumber() { return this.employee.getEmpNumber(); }
     public String getJobCode() { return jobCode; }
     public String getJobTitle() { return jobTitle; }
     public String getGradeCode() { return gradeCode; }

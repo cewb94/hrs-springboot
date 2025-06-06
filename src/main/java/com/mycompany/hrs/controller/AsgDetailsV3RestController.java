@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Yaqoub Alshatti
  */
 @Controller
-@RequestMapping("/api/emp_assi_dets_v3")
+@RequestMapping("/api/asg_dets_v3")
 public class AsgDetailsV3RestController {
 
     private final AsgDetailsV3Service service;

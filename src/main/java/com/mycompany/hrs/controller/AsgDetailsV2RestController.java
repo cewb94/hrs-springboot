@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/api/emp_assi_dets_v2")
+@RequestMapping("/api/asg_dets_v2")
 public class AsgDetailsV2RestController {
 
     private final AsgDetailsV2Service service;
