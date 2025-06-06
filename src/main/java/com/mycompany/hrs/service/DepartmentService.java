@@ -1,9 +1,11 @@
 package com.mycompany.hrs.service;
 
 import com.mycompany.hrs.entity.HrsDepartment;
+import com.mycompany.hrs.entity.HrsLocation;
 import com.mycompany.hrs.repository.HrsDepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class DepartmentService {
     }
 
     @Async
-    @Cacheable(cacheNames = "departments")
+    @CachePut(cacheNames = "departments")
     public CompletableFuture<List<HrsDepartment>> getAllDepartments() {
         List<HrsDepartment> all = departmentRepository.findAll();
         return CompletableFuture.completedFuture(all);
@@ -47,12 +49,13 @@ public class DepartmentService {
     @Async
     @Transactional
     @CacheEvict(cacheNames = {"departments", "department"}, allEntries = true)
-    public CompletableFuture<HrsDepartment> updateDepartment(Long id, HrsDepartment d) {
+    public CompletableFuture<HrsDepartment> updateDepartment(Long id, HrsDepartment dept) {
         return CompletableFuture.supplyAsync(() -> {
             HrsDepartment existing = departmentRepository.findById(id).orElseThrow(() ->
-                    new RuntimeException("Department not found: " + id));
-            existing.setLocId(d.getLocId());
-            existing.setDeptName(d.getDeptName());
+                    new RuntimeException("Department not found with id: " + id));
+            //existing.setLocId(d.getLocId());
+            existing.setLocation(dept.geLocation());
+            existing.setDeptName(dept.getDeptName());
             return departmentRepository.save(existing);
         });
     }

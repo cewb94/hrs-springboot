@@ -25,8 +25,11 @@ public class HrsDepartment {
     @Column(name = "DEPT_ID")
     private Long deptId;
 
-    @Column(name = "LOC_ID")
-    private Long locId;
+    // @Column(name = "LOC_ID")
+    // private Long locId;
+    @ManyToOne
+    @JoinColumn(name = "loc_id")
+    private HrsLocation location;
 
     @Column(name = "DEPT_NAME", length = 255)
     private String deptName;
@@ -34,9 +37,9 @@ public class HrsDepartment {
     // Constructors
     public HrsDepartment() { }
 
-    public HrsDepartment(Long deptId, Long locId, String deptName) {
+    public HrsDepartment(Long deptId, HrsLocation location, String deptName) {
         this.deptId = deptId;
-        this.locId = locId;
+        this.location = location;
         this.deptName = deptName;
     }
 
@@ -44,8 +47,9 @@ public class HrsDepartment {
     public Long getDeptId() { return deptId; }
     public void setDeptId(Long deptId) { this.deptId = deptId; }
 
-    public Long getLocId() { return locId; }
-    public void setLocId(Long locId) { this.locId = locId; }
+    public Long getLocId() { return this.location.getLocId(); }
+    public HrsLocation geLocation() { return this.location; }
+    public void setLocation(HrsLocation location) { this.location = location; }
 
     public String getDeptName() { return deptName; }
     public void setDeptName(String deptName) { this.deptName = deptName; }
