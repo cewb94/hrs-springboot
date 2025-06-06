@@ -22,6 +22,9 @@ public class HrsAsgDetailsV2 {
     @Column(name = "FULL_NAME", length = 511)
     private String fullName;
 
+    @Column(name = "EMP_NUMBER", length = 255)
+    private String empNumber;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "EMP_ID")
@@ -55,9 +58,6 @@ public class HrsAsgDetailsV2 {
     
     // @Column(name = "EMP_ID")
     // private Long empId;
-
-    @Column(name = "EMP_NUMBER", length = 255)
-    private String empNumber;
 
     @Column(name = "JOB_CODE", length = 255)
     private String jobCode;
@@ -96,7 +96,7 @@ public class HrsAsgDetailsV2 {
     public String getAssiAction() { return assiAction; }
     public java.util.Date getEffStartDate() { return effStartDate; }
     public java.util.Date getEffEndDate() { return effEndDate; }
-    //public String getEmpNumber() { return this.employee.getEmpNumber(); }
+    public String getEmpNumber() { return this.employee.getEmpNumber(); }
     public String getJobCode() { return jobCode; }
     public String getJobTitle() { return jobTitle; }
     public String getGradeCode() { return gradeCode; }
