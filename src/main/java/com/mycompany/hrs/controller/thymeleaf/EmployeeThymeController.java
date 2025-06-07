@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
  * This controller serves Thymeleaf web pages for employees.
  */
 @Controller
-@RequestMapping("/employees")
+@RequestMapping
 public class EmployeeThymeController {
 
     private final AsgDetailsV2Service asgDetailsService;
@@ -51,7 +51,7 @@ public class EmployeeThymeController {
     /**
      * Show a list of employees (with assignment details) by querying the view.
      */
-    @GetMapping
+    @GetMapping("/employees")
     public String listEmployees(Model model) throws ExecutionException, InterruptedException {
         List<HrsAsgDetailsV2> employees = asgDetailsService.getAllAsgDetails();
         model.addAttribute("employees", employees);
@@ -67,18 +67,10 @@ public class EmployeeThymeController {
      *   - All Grades
      *   - (Optionally) list of possible supervisors (we can just reuse HrsAsgDetailsV2 list)
      */
-    @GetMapping("/new")
+    @GetMapping("/new-employee")
     public String showHireForm(Model model) throws ExecutionException, InterruptedException {
         EmployeeForm form = new EmployeeForm();
         model.addAttribute("employeeForm", form);
-        
-        // 1. Fetch the full list of countries
-        // List<Country> countries = countryService.getAllCountries();
-        // 2. Create and insert a dummy “blank” country at index 0
-        // countries.add(0, new Country("", "", ""));
-
-        // 3. Put the modified list into the model
-        // model.addAttribute("countries", countries);
 
         // Populate dropdowns: departments, jobs, grades, countries, and possible supervisors
         model.addAttribute("departments", departmentService.getAllDepartments().get());

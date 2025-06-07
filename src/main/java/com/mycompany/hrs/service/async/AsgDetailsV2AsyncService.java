@@ -7,6 +7,9 @@ package com.mycompany.hrs.service.async;
 import com.mycompany.hrs.entity.HrsAsgDetailsV2;
 import com.mycompany.hrs.repository.HrsAsgDetailsV2Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,8 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * This bean is responsible for *only* doing the @Async fetch from the database.
- * None of its methods are @Cacheable.  Each method returns a CompletableFuture<T>.
+ * None of its methods are @Cacheable. Each method returns a
+ * CompletableFuture<T>.
  */
 @Service
 public class AsgDetailsV2AsyncService {
@@ -52,5 +56,9 @@ public class AsgDetailsV2AsyncService {
     public CompletableFuture<HrsAsgDetailsV2> fetchAsgDetailByEmpNum(String empNumber) {
         HrsAsgDetailsV2 result = asgDetailsRepo.findByEmpNumber(empNumber);
         return CompletableFuture.completedFuture(result);
+    }
+
+    public Page<HrsAsgDetailsV2> getPagedAsgDetails(Specification<HrsAsgDetailsV2> spec, Pageable pg) {
+        return asgDetailsRepo.findAll(spec, pg);
     }
 }

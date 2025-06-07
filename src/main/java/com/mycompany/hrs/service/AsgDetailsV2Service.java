@@ -5,6 +5,9 @@ import com.mycompany.hrs.service.async.AsgDetailsV2AsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,4 +58,10 @@ public class AsgDetailsV2Service {
         //return future.get();
     }
     
+    
+    @CachePut(cacheNames = "pagedAsgDetailsV2")
+    public Page<HrsAsgDetailsV2> getPagedAsgDetails(Specification<HrsAsgDetailsV2> spec, Pageable pg) throws InterruptedException, ExecutionException {
+
+        return asyncService.getPagedAsgDetails(spec, pg);
+    }
 }
