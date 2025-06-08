@@ -79,8 +79,8 @@ public class EmployeeThymeController {
         model.addAttribute("countries", countryService.getAllCountries()); // ${countries}
 
         // We also supply a list of existing employees & their names (from view) as possible supervisors:
-        model.addAttribute("supervisors", asgDetailsService.getAllAsgDetails());
-
+        List<HrsAsgDetailsV2> supervisors = asgDetailsService.getAllAsgDetails();
+        model.addAttribute("supervisors", supervisors);
 
         return "new-employee";  // Thymeleaf template: new-employee.html
     }

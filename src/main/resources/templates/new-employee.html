@@ -79,7 +79,7 @@
                     <label for="supervisorId" class="form-label">Supervisor (optional)</label>
                     <select id="supervisorId" th:field="*{supervisorId}" class="form-select">
                         <option value="" th:text="'-- None --'"></option>
-                        <option th:each="sup : ${supervisors}" th:value="${sup.empId}" th:text="${sup.fullName}">
+                        <option th:each="sup : ${supervisors}" th:value="${sup.employee.empId}" th:text="${sup.fullName}">
                             Supervisor Name</option>
                     </select>
                 </div>

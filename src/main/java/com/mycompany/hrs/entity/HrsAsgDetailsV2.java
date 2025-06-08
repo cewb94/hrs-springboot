@@ -91,7 +91,8 @@ public class HrsAsgDetailsV2 {
     public Long getDeptId() { return deptId; }
     public Long getJobId() { return jobId; }
     public Long getGradeId() { return gradeId; }
-    //public Long getEmpId() { return this.employee.getEmpId(); }
+    // getEmpId() was crashing new-employee.html becauase it gets referenced
+    // public Long getEmpId() { return this.employee.getEmpId(); }
     public String getAssiNumber() { return assiNumber; }
     public String getAssiAction() { return assiAction; }
     public java.util.Date getEffStartDate() { return effStartDate; }
