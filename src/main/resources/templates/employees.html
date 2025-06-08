@@ -6,46 +6,13 @@
 <div class="container mt-4">
     <h1>Employee List</h1>
     <a class="btn btn-primary mb-3" th:href="@{/new-employee}">Hire New Employee</a>
-    <div class="table table-striped table-bordered">
-        <div id="employee-table"></div>
-    </div>
 
-    <table class="table table-striped table-bordered">
-        <thead class="table-light">
-            <tr>
-                <!-- <th>Assign ID</th> -->
-                <th>Emp Number</th>
-                <th>Full Name</th>
-                <th>Dept</th>
-                <th>Job</th>
-                <th>Grade</th>
-                <th>Supervisor</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="asg : ${employees}">
-                <!-- <td th:text="${asg.assiId}">1</td> -->
-                <td th:text="${asg.empNumber}">EMP001</td>
-                <td th:text="${asg.fullName}">John Doe</td>
-                <td th:text="${asg.departmentName}">HR</td>
-                <td th:text="${asg.jobTitle}">HR Manager</td>
-                <td th:text="${asg.gradeName}">HO5</td>
-                <td th:text="${asg.supervisorName == null ? '-' : asg.supervisorName}">-</td>
-                <td th:text="${asg.effStartDate}">2025-01-01</td>
-                <td th:text="${asg.effEndDate}">2025-12-31</td>
-            </tr>
-            <tr th:if="${employees.isEmpty()}">
-                <td colspan="9" class="text-center">No employees found.</td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="employee-table"></div>
 </div>
 
 
 <!-- Load Tabulator JS before initialization -->
-
+<!-- tabulator-tables v5.5.0 -->
 <script th:src="@{/js/tabulator.min.js}"></script>
 
 <!-- Initialize Tabulator -->
@@ -54,6 +21,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         new Tabulator("#employee-table", {
             ajaxURL: "\/api\/asg_dets_v2\/table", // resolved by Thymeleaf
+            theme: "bootstrap5",
             layout: "fitColumns",               // Fit columns to width
             pagination: "local",                // Use client-side pagination
             paginationSize: 10,
