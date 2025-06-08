@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  *
@@ -39,21 +42,23 @@ public class CountryService {
     /**
      * Fetches all countries (with ISO codes) and returns List<Country>.
      */
-    public List<Country> getAllCountries() {
+    @Async("threadPoolTaskExecutor")
+    @CachePut(cacheNames = "countries")
+    public CompletableFuture<List<Country>> getAllCountries() {
         try {
             CountryResponse response =
-                    restTemplate.getForObject(COUNTRIES_API_URL, CountryResponse.class);
+                restTemplate.getForObject(COUNTRIES_API_URL, CountryResponse.class);
 
             if (response != null && !response.isError()) {
-                return response.getData();
+                return CompletableFuture.completedFuture(response.getData());
             } else {
                 logger.warn("API returned error or null: {}", response);
-                return Collections.emptyList();
+                return CompletableFuture.completedFuture(Collections.emptyList());
             }
 
         } catch (RestClientException ex) {
             logger.error("Failed to fetch countries: {}", ex.getMessage());
-            return Collections.emptyList();
+            return CompletableFuture.completedFuture(Collections.emptyList());
         }
     }
 

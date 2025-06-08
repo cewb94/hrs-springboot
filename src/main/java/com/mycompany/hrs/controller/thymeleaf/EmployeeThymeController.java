@@ -76,7 +76,7 @@ public class EmployeeThymeController {
         model.addAttribute("departments", departmentService.getAllDepartments().get());
         model.addAttribute("jobs", jobService.getAllJobs().get());
         model.addAttribute("grades", gradeService.getAllGrades().get());
-        model.addAttribute("countries", countryService.getAllCountries()); // ${countries}
+        model.addAttribute("countries", countryService.getAllCountries().join()); // ${countries}
 
         // We also supply a list of existing employees & their names (from view) as possible supervisors:
         List<HrsAsgDetailsV2> supervisors = asgDetailsService.getAllAsgDetails();

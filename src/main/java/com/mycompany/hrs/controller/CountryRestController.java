@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -31,8 +32,8 @@ public class CountryRestController {
     }
 
     @GetMapping("/countries")
-    public ResponseEntity<List<Country>> getAllCountries() {
-        List<Country> countries = countryService.getAllCountries();
+    public ResponseEntity<List<Country>> getAllCountries() throws InterruptedException, ExecutionException {
+        List<Country> countries = countryService.getAllCountries().get();
         return ResponseEntity.ok(countries);
     }
 
