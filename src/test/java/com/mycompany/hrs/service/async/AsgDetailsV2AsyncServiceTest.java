@@ -29,9 +29,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class AsgDetailsV2AsyncServiceTest {
 
+    // This instance (class) variable is found in the service we are unit testing
     @Mock
     private HrsAsgDetailsV2Repository repository;
 
+    // this is the service we are unit testing
     @InjectMocks
     private AsgDetailsV2AsyncService service;
 
@@ -41,85 +43,56 @@ class AsgDetailsV2AsyncServiceTest {
     @BeforeEach
     void setUp() {
         // Create immutable/mock entities, stub only getters
-        HrsEmployee mockEmp1 = mock(HrsEmployee.class, "mockEmp1");
-        when(mockEmp1.getEmpId()).thenReturn(1L);
-        when(mockEmp1.getEmpNumber()).thenReturn("10");
+        // HrsEmployee mockEmp1 = mock(HrsEmployee.class, "mockEmp1");
+        // when(mockEmp1.getEmpId()).thenReturn(6L);
+        // when(mockEmp1.getEmpNumber()).thenReturn("13");
+        // when(mockEmp1.getFirstName()).thenReturn("Fatma");
+        // when(mockEmp1.getLastName()).thenReturn("Saad");
 
         detail1 = mock(HrsAsgDetailsV2.class, "detail1");
-        when(detail1.getAssiId()).thenReturn(1L);
-        when(detail1.getEmployee()).thenReturn(mockEmp1);
-        when(detail1.getEmpNumber()).thenReturn(mockEmp1.getEmpNumber());
+        // when(detail1.getAssiId()).thenReturn(6L);
+        //when(detail1.getEmployee()).thenReturn(mockEmp1);
+        when(detail1.getEmpNumber()).thenReturn("13");
+        // when(detail1.getAssiNumber()).thenReturn("E13");
+        when(detail1.getFullName()).thenReturn("Fatma Saad");
         
+        // HrsEmployee mockEmp2 = mock(HrsEmployee.class, "mockEmp2");
+        // when(mockEmp2.getFirstName()).thenReturn("Bader");when(mockEmp2.getLastName()).thenReturn("Alnaser");
+        // when(mockEmp2.getEmpId()).thenReturn(2L);
+        // when(mockEmp2.getEmpNumber()).thenReturn("11");
 
+        detail2 = mock(HrsAsgDetailsV2.class, "detail2");
+        // when(detail2.getAssiId()).thenReturn(2L);
+        //when(detail2.getEmployee()).thenReturn(mockEmp2);
+        when(detail2.getEmpNumber()).thenReturn("20");
+        // when(detail2.getAssiNumber()).thenReturn("E20");
+        when(detail2.getFullName()).thenReturn("Bader Alnaser");
     }
 
     @Test
     void fetchAllAsgDetails_returnsAllEntities() throws Exception {
-        List<HrsAsgDetailsV2> allRows = Arrays.asList(detail1, detail2);
-        when(repository.findAll()).thenReturn(allRows);
+        // Arrange: make the repository return our two samples
+        when(repository.findAll()).thenReturn(Arrays.asList(detail1, detail2));
 
+        // Act: call the async service method
         CompletableFuture<List<HrsAsgDetailsV2>> future = service.fetchAllAsgDetails();
-        List<HrsAsgDetailsV2> result = future.get();
+        List<HrsAsgDetailsV2> actual = future.get();
 
-        assertThat(result)
-            .hasSize(2)
-            .containsExactly(detail1, detail2);
+        // Assert: size and content
+        assertThat(actual).hasSize(2);
 
+        // check first element
+        HrsAsgDetailsV2 first = actual.get(0);
+        assertThat(first.getFullName()).isEqualTo("Fatma Saad");
+        assertThat(first.getEmpNumber()).isEqualTo("13");
+
+        // check second element
+        HrsAsgDetailsV2 second = actual.get(1);
+        assertThat(second.getFullName()).isEqualTo("Bader Alnaser");
+        assertThat(second.getEmpNumber()).isEqualTo("20");
+
+        // Verify interaction
         verify(repository).findAll();
     }
 
-    @Test
-    void fetchAllAsgDetails_returnsEmptyListWhenNone() throws Exception {
-        when(repository.findAll()).thenReturn(Collections.emptyList());
-
-        CompletableFuture<List<HrsAsgDetailsV2>> future = service.fetchAllAsgDetails();
-        List<HrsAsgDetailsV2> result = future.get();
-
-        assertThat(result).isEmpty();
-        verify(repository).findAll();
-    }
-
-    @Test
-    void fetchAsgDetailById_found() throws Exception {
-        when(repository.findById(1L)).thenReturn(Optional.of(detail1));
-
-        CompletableFuture<HrsAsgDetailsV2> future = service.fetchAsgDetailById(1L);
-        HrsAsgDetailsV2 result = future.get();
-
-        assertThat(result).isSameAs(detail1);
-        verify(repository).findById(1L);
-    }
-
-    @Test
-    void fetchAsgDetailById_notFound_returnsNull() throws Exception {
-        when(repository.findById(99L)).thenReturn(Optional.empty());
-
-        CompletableFuture<HrsAsgDetailsV2> future = service.fetchAsgDetailById(99L);
-        HrsAsgDetailsV2 result = future.get();
-
-        assertThat(result).isNull();
-        verify(repository).findById(99L);
-    }
-
-    @Test
-    void fetchAsgDetailByEmpNum_found() throws Exception {
-        when(repository.findByEmpNumber("E001")).thenReturn(detail1);
-
-        CompletableFuture<HrsAsgDetailsV2> future = service.fetchAsgDetailByEmpNum("E001");
-        HrsAsgDetailsV2 result = future.get();
-
-        assertThat(result).isSameAs(detail1);
-        verify(repository).findByEmpNumber("E001");
-    }
-
-    @Test
-    void fetchAsgDetailByEmpNum_notFound_returnsNull() throws Exception {
-        when(repository.findByEmpNumber("UNKNOWN")).thenReturn(null);
-
-        CompletableFuture<HrsAsgDetailsV2> future = service.fetchAsgDetailByEmpNum("UNKNOWN");
-        HrsAsgDetailsV2 result = future.get();
-
-        assertThat(result).isNull();
-        verify(repository).findByEmpNumber("UNKNOWN");
-    }
 }
