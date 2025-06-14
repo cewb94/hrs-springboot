@@ -5,6 +5,7 @@ import com.mycompany.hrs.entity.HrsDepartment;
 import com.mycompany.hrs.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class DepartmentRestController {
     public DepartmentRestController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
+
 
     @GetMapping
     public CompletableFuture<ResponseEntity<List<HrsDepartment>>> getAllDepartments() {
